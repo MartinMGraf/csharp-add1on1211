@@ -37,7 +37,8 @@ jobs:
               /p:PublishAot=true \
               /p:IlcDisableReflection=true \
               /p:InvariantGlobalization=true \
-              /p:StripSymbols=true
+              /p:StripSymbols=true \
+              /p:IlcAdditionalLinkerFlags="-fuse-ld=lld"
           "
 
 
