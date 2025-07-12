@@ -11,7 +11,7 @@ RUN \
 
 RUN apk add --no-cache unzip curl
 
-RUN curl -sSLf -o app.tar.gz "https://github.com/MartinMGraf/csharp-addon1211/releases/download/latest/MyAddon.zip" \
+RUN curl -sSLf -o MyAddon.zip "https://github.com/MartinMGraf/csharp-addon1211/releases/download/latest/MyAddon.zip" \
  && unzip MyAddon.zip -d /app \
  && rm MyAddon.zip
 
