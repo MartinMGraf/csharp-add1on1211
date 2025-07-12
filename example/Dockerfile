@@ -20,4 +20,4 @@ RUN apk add --no-cache libstdc++
 RUN ldd app/MyAddon
 
 RUN chmod +x app/MyAddon
-CMD ["app/MyAddon"]
+CMD ["/app/MyAddon"]
