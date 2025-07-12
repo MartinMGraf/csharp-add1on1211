@@ -1,13 +1,12 @@
-ARG BUILD_FROM=ghcr.io/home-assistant/aarch64-base:3.15
+ARG BUILD_FROM
 
 # BUILD FROM dotnet SDK to compile die App
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 COPY ./src/ ./
-RUN dotnet publish -c Release -o /out
+RUN dotnet publish -c Release -r linux-arm64 --self-contained true -o /out
 
 # https://developers.home-assistant.io/docs/add-ons/configuration#add-on-dockerfile
-
 FROM $BUILD_FROM
 
 
@@ -17,9 +16,7 @@ RUN \
     curl -sSLf -o /usr/bin/tempio \
     "https://github.com/home-assistant/tempio/releases/download/${TEMPIO_VERSION}/tempio_${BUILD_ARCH}"
 
-# Kopiere App
 COPY --from=build /out /app
 WORKDIR /app
 
-# Starte App
-CMD ["dotnet", "MyAddon.dll"]
+CMD ["/app/MyAddon"]
