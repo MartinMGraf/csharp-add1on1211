@@ -26,20 +26,19 @@ jobs:
     - name: test 
       run: |
         docker run --rm -v ${{ github.workspace }}:/src my-image-name \
-          bash -c "
-            apt-get update &&
-            apt-get install -y musl-tools clang lld gcc-aarch64-linux-gnu g++-aarch64-linux-gnu libc6-dev-arm64-cross pkg-config zlib1g-dev&&
-            dotnet publish example/src/MyAddon.csproj \
-              -c Release \
-              -r linux-musl-arm64 \
-              --self-contained true \
-              /p:PublishAot=true \
-              /p:IlcDisableReflection=true \
-              /p:InvariantGlobalization=true \
-              /p:StripSymbols=true \
-              /p:IlcAdditionalLinkerFlags='--target=aarch64-linux-musl -fuse-ld=lld' \
-              /p:Linker=lld
-          "        
+        sh -c "
+          apk add --no-cache musl-dev clang lld gcc g++ pkgconfig zlib-dev &&
+          dotnet publish example/src/MyAddon.csproj \
+            -c Release \
+            -r linux-musl-arm64 \
+            --self-contained true \
+            /p:PublishAot=true \
+            /p:IlcDisableReflection=true \
+            /p:InvariantGlobalization=true \
+            /p:StripSymbols=true \
+            /p:IlcAdditionalLinkerFlags='--target=aarch64-linux-musl -fuse-ld=lld' \
+            /p:Linker=lld
+        " 
 
 
 
