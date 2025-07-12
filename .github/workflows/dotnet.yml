@@ -29,7 +29,7 @@ jobs:
           mcr.microsoft.com/dotnet/sdk:9.0 \
           bash -c "
             apt-get update &&
-            apt-get install -y musl-tools clang lld gcc-aarch64-linux-gnu g++-aarch64-linux-gnu libc6-dev-arm64-cross pkg-config zlib1g-dev libstdc++-arm64-cross &&
+            apt-get install -y musl-tools clang lld gcc-aarch64-linux-gnu g++-aarch64-linux-gnu libc6-dev-arm64-cross pkg-config zlib1g-dev&&
             dotnet publish example/src/MyAddon.csproj \
               -c Release \
               -r linux-musl-arm64 \
