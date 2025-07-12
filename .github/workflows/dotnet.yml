@@ -21,7 +21,7 @@ jobs:
       with:
         dotnet-version: 9.0.x
     - name: Publish application
-      run: dotnet publish example/src/MyAddon.csproj -c Release -r linux-arm64 --self-contained true
+      run: dotnet publish example/src/MyAddon.csproj -c Release -r linux-musl-arm64 --self-contained true -p:PublishTrimmed=true
     - name: Zip for Release
       run: |
         cd example/src/bin/Release/net9.0/linux-arm64/publish
