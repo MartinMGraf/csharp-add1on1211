@@ -1,24 +1,30 @@
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:9.0
 
-# 1. Abhängigkeiten installieren
+# 1. Cross-Compiler für aarch64 installieren
 RUN apt-get update && apt-get install -y \
-    clang lld gcc g++ musl-tools zlib1g-dev pkg-config
+    clang lld gcc g++ zlib1g-dev musl-tools \
+    gcc-aarch64-linux-gnu g++-aarch64-linux-gnu pkg-config
 
 # 2. Arbeitsverzeichnis
 WORKDIR /src
 
-# 3. Code in Container kopieren
+# 3. Projektdateien kopieren
 COPY . .
-RUN clang --version && ld.lld --version && which clang && which ld.lld
-# 4. Publish mit AOT für linux-musl-arm64
+
+# 4. Umgebungsvariablen setzen
+ENV CC=aarch64-linux-gnu-gcc \
+    CXX=aarch64-linux-gnu-g++ \
+    DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
+
+# 5. AOT-Build
 RUN dotnet publish example/src/MyAddon.csproj \
     -c Release \
     -r linux-musl-arm64 \
     --self-contained true \
     /p:PublishAot=true \
-    /p:IlcAdditionalLinkerFlags="--target=aarch64-linux-musl -fuse-ld=lld" \
-    /p:Linker=lld \
+    /p:StripSymbols=true \
+    /p:InvariantGlobalization=true \
+    /p:IlcDisableReflection=true \
     /p:UseSystemToolchain=true \
-    /p:CppCompilerAndLinker=clang \
-    /p:CppCompilerFlags="--target=aarch64-linux-musl" \
-    /p:LinkerSwitches="--target=aarch64-linux-musl -fuse-ld=lld"
+    /p:CppCompilerAndLinker=aarch64-linux-gnu-gcc \
+    /p:IlcAdditionalLinkerFlags="--static -nostdlib"
