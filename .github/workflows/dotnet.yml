@@ -23,17 +23,13 @@ jobs:
     - name: tet
       run: |
         docker build -t my-image-name https://github.com/dotnet/dotnet-docker/raw/refs/heads/main/src/aspnet/9.0/alpine3.22-composite/amd64/Dockerfile
-
-    - name: Build inside Docker container
+    - name: test 
       run: |
-        docker run --rm \
-          -v ${{ github.workspace }}:/app \
-          -w /app \
-          mcr.microsoft.com/dotnet/sdk:9.0 \
+        docker run --rm -v ${{ github.workspace }}:/src my-image-name \
           bash -c "
             apt-get update &&
             apt-get install -y musl-tools clang lld gcc-aarch64-linux-gnu g++-aarch64-linux-gnu libc6-dev-arm64-cross pkg-config zlib1g-dev&&
-            dotnet cross publish example/src/MyAddon.csproj \
+            dotnet publish example/src/MyAddon.csproj \
               -c Release \
               -r linux-musl-arm64 \
               --self-contained true \
@@ -43,7 +39,8 @@ jobs:
               /p:StripSymbols=true \
               /p:IlcAdditionalLinkerFlags='--target=aarch64-linux-musl -fuse-ld=lld' \
               /p:Linker=lld
-          "
+          "        
+
 
 
        
