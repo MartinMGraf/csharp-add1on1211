@@ -24,7 +24,7 @@ jobs:
       run: |
         docker run --rm -v ${{ github.workspace }}:/src my-image-name \
         sh -c "
-          apk add --no-cache musl-dev clang lld gcc g++ pkgconfig zlib-dev &&
+          apk add --no-cache musl-dev clang lld gcc g++ pkgconfig zlib-dev llvm-dev g++ gcc musl-dev aarch64-linux-musl-gcc aarch64-linux-musl-binutils &&
           dotnet publish /src/example/src/MyAddon.csproj \
             -c Release \
             -r linux-musl-arm64 \
