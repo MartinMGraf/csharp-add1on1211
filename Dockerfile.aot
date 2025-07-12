@@ -9,7 +9,7 @@ WORKDIR /src
 
 # 3. Code in Container kopieren
 COPY . .
-
+RUN clang --version && ld.lld --version && which clang && which ld.lld
 # 4. Publish mit AOT für linux-musl-arm64
 RUN dotnet publish example/src/MyAddon.csproj \
     -c Release \
@@ -19,6 +19,6 @@ RUN dotnet publish example/src/MyAddon.csproj \
     /p:IlcDisableReflection=true \
     /p:InvariantGlobalization=true \
     /p:StripSymbols=true \
-    /p:IlcAdditionalLinkerFlags="--target=aarch64-linux-musl -fuse-ld=lld" \
+    /p:IlcAdditionalLinkerFlags="--target=aarch64-linux-musl -fuse-ld=lld"
     /p:Linker=lld \
     /p:UseSystemToolchain=true
