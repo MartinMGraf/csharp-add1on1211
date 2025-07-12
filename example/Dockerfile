@@ -17,5 +17,7 @@ RUN curl -sSLf -o MyAddon.zip "https://github.com/MartinMGraf/csharp-addon1211/r
 
 RUN ls -la /
 
+RUN ldd /app/MyAddon
+
 RUN chmod +x app/MyAddon
 RUN app/MyAddon
