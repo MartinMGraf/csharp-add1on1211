@@ -16,9 +16,9 @@ RUN dotnet publish example/src/MyAddon.csproj \
     -r linux-musl-arm64 \
     --self-contained true \
     /p:PublishAot=true \
-    /p:IlcDisableReflection=true \
-    /p:InvariantGlobalization=true \
-    /p:StripSymbols=true \
-    /p:IlcAdditionalLinkerFlags=--target=aarch64-linux-musl -fuse-ld=lld \
+    /p:IlcAdditionalLinkerFlags="--target=aarch64-linux-musl -fuse-ld=lld" \
     /p:Linker=lld \
-    /p:UseSystemToolchain=true
+    /p:UseSystemToolchain=true \
+    /p:CppCompilerAndLinker=clang \
+    /p:CppCompilerFlags="--target=aarch64-linux-musl" \
+    /p:LinkerSwitches="--target=aarch64-linux-musl -fuse-ld=lld"
