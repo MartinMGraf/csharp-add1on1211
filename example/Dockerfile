@@ -12,10 +12,8 @@ RUN \
 RUN apk add --no-cache \
     curl \
     icu-libs \
-    krb5-libs \
     libgcc \
     libstdc++ \
-    zlib \
     unzip
 
 RUN curl -sSLf -o MyAddon.zip "https://github.com/MartinMGraf/csharp-add1on12111/releases/download/latest/MyAddon.zip" \
