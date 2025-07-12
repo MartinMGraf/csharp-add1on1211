@@ -33,6 +33,6 @@ jobs:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       continue-on-error: true
     - name: Create release
-      run: gh release create latest --title "Latest Release" ${{github.workspace}}\MyAddon.zip
+      run: gh release create latest --title "Latest Release" ${{github.workspace}}/MyAddon.zip
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
