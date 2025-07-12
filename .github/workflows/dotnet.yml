@@ -20,6 +20,9 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 9.0.x
+    - name: tet
+      run: |
+        docker build -t my-image-name https://github.com/dotnet/dotnet-docker/blob/main/src/aspnet/9.0/alpine3.22-composite/amd64/Dockerfile
 
     - name: Build inside Docker container
       run: |
