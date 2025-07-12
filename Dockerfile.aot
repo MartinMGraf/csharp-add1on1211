@@ -1,9 +1,10 @@
 FROM mcr.microsoft.com/dotnet/sdk:9.0
 
 # 1. Cross-Compiler für aarch64 installieren
-RUN apt-get update && apt-get install -y \
-    clang lld gcc g++ zlib1g-dev musl-tools \
-    gcc-aarch64-linux-gnu g++-aarch64-linux-gnu pkg-config
+RUN apt-get update && apt-get install -y curl xz-utils gcc g++ musl-tools pkg-config zlib1g-dev \
+ && curl -LO https://musl.cc/aarch64-linux-musl-cross.tgz \
+ && tar -xzf aarch64-linux-musl-cross.tgz -C /opt \
+ && ln -s /opt/aarch64-linux-musl-cross/bin/* /usr/local/bin/
 
 # 2. Arbeitsverzeichnis
 WORKDIR /src
@@ -26,5 +27,5 @@ RUN dotnet publish example/src/MyAddon.csproj \
     /p:InvariantGlobalization=true \
     /p:IlcDisableReflection=true \
     /p:UseSystemToolchain=true \
-    /p:CppCompilerAndLinker=aarch64-linux-gnu-gcc \
+    /p:CppCompilerAndLinker=aarch64-linux-musl-gcc \
     /p:IlcAdditionalLinkerFlags="--static -nostdlib"
