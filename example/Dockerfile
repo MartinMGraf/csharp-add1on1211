@@ -16,7 +16,7 @@ RUN apk add --no-cache \
     libstdc++ \
     unzip
 
-RUN curl -sSLf -o MyAddon.zip "https://github.com/MartinMGraf/csharp-add1on12111/releases/download/latest/MyAddon.zip" \
+RUN curl -sSLf -o MyAddon.zip "https://github.com/MartinMGraf/csharp-add1on12111x/releases/download/latest/MyAddon.zip" \
  && unzip MyAddon.zip -d /app \
  && rm MyAddon.zip
 
