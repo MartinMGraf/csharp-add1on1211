@@ -21,11 +21,11 @@ jobs:
       with:
         dotnet-version: 9.0.x
     - name: Restore dependencies
-      run: dotnet restore /example/src/MyAddon.csproj
+      run: dotnet restore example/src/MyAddon.csproj
     - name: Build
-      run: dotnet build \example\src\MyAddon.csproj --no-restore
+      run: dotnet build example/src/MyAddon.csproj --no-restore
     - name: Publish application
-      run: dotnet publish \example\src\MyAddon.csproj --no-build -c Release -r linux-arm64 --self-contained true -p:AssemblyName=MyAddon -o /out
+      run: dotnet publish example/src/MyAddon.csproj --no-build -c Release -r linux-arm64 --self-contained true -p:AssemblyName=MyAddon -o /out
     - name: Zip for Release
       run: Compress-Archive -Path ${{github.workspace}}/out/publish* -Destination ${{github.workspace}}\MyAddon.zip
     - name: Delete latest release and cleanup tag
