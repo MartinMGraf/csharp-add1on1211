@@ -21,6 +21,26 @@ jobs:
       with:
         dotnet-version: 9.0.x
 
+    - name: Build inside Docker container
+      run: |
+        docker run --rm \
+          -v ${{ github.workspace }}:/app \
+          -w /app \
+          mcr.microsoft.com/dotnet/sdk:9.0 \
+          bash -c "
+            apt-get update &&
+            apt-get install -y musl-tools clang lld gcc-aarch64-linux-gnu &&
+            dotnet publish example/src/MyAddon.csproj \
+              -c Release \
+              -r linux-musl-arm64 \
+              --self-contained true \
+              /p:PublishAot=true \
+              /p:IlcDisableReflection=true \
+              /p:InvariantGlobalization=true \
+              /p:StripSymbols=true
+          "
+
+
        
     - name: Install ARM64 Cross-Toolchain
       run: |
