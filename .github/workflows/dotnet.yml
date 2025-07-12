@@ -25,7 +25,7 @@ jobs:
     - name: Install ARM64 Cross-Toolchain
       run: |
         sudo apt-get update
-        sudo apt-get install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu binutils-aarch64-linux-gnu clang lld icu-lib libgcc libstdc++
+        sudo apt-get install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu binutils-aarch64-linux-gnu clang lld icu-lib libicu-dev libgcc-12-dev
     - name: Publish application
       run: dotnet publish example/src/MyAddon.csproj -c Release -r linux-musl-arm64 --self-contained true
       
