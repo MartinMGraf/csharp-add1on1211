@@ -23,7 +23,10 @@ jobs:
     - name: Publish application
       run: dotnet publish example/src/MyAddon.csproj -c Release -r linux-arm64 --self-contained true
     - name: Zip for Release
-      run: Compress-Archive -Path example/src/bin/Release/net9.0/linux-arm64/publish/* -Destination ${{github.workspace}}\MyAddon.zip
+      run: |
+        cd example/src/bin/Release/net9.0/linux-arm64/publish
+        zip -r MyAddon.zip ./*
+        mv MyAddon.zip  ${{github.workspace}}
     - name: Delete latest release and cleanup tag
       run: gh release delete latest --cleanup-tag
       env:
