@@ -1,63 +1,24 @@
-# This workflow will build a .NET project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
-
-name: .NET
+name: Build AOT for linux-musl-arm64
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ main ]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout source
+      uses: actions/checkout@v4
 
-    - name: tet
+    - name: Build in Docker
       run: |
-        docker build -t my-image-name https://raw.githubusercontent.com/dotnet/dotnet-docker/refs/heads/main/src/sdk/9.0/alpine3.21/amd64/Dockerfile
-    - name: test 
-      run: |
-        docker run --rm -v ${{ github.workspace }}:/src my-image-name \
-        sh -c "
-          apk add --no-cache musl-dev clang lld gcc g++ pkgconfig zlib-dev llvm-dev g++ gcc musl-dev  &&
-          dotnet publish /src/example/src/MyAddon.csproj \
-            -c Release \
-            -r linux-musl-arm64 \
-            --self-contained true \
-            /p:PublishAot=true \
-            /p:IlcDisableReflection=true \
-            /p:InvariantGlobalization=true \
-            /p:StripSymbols=true \
-            /p:IlcAdditionalLinkerFlags='--target=aarch64-linux-musl -fuse-ld=lld' \
-            /p:Linker=lld
-        " 
+        docker build -t my-dotnet-aot -f Dockerfile.aot .
 
-
-
-       
-    - name: Install ARM64 Cross-Toolchain
+    - name: Export AOT artifact
       run: |
-        sudo apt-get update
-        sudo apt-get install -y gcc-aarch64-linux-gnu g++-aarch64-linux-gnu binutils-aarch64-linux-gnu clang lld libicu-dev libgcc-12-dev
-    - name: Publish application
-      run: dotnet publish example/src/MyAddon.csproj -c Release -r linux-musl-arm64 --self-contained true
-      
-    - name: Zip for Release
-      run: |
-        cd example/src/bin/Release/net9.0/linux-musl-arm64/publish
-        zip -r MyAddon.zip ./*
-        mv MyAddon.zip  ${{github.workspace}}
-    - name: Delete latest release and cleanup tag
-      run: gh release delete latest --cleanup-tag
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      continue-on-error: true
-    - name: Create release
-      run: gh release create latest --title "Latest Release" ${{github.workspace}}/MyAddon.zip
-      env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        docker run --rm -v ${{ github.workspace }}:/out my-dotnet-aot \
+        cp -r /src/bin/Release/net9.0/linux-musl-arm64/native /out/artifact
