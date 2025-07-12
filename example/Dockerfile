@@ -5,7 +5,7 @@ COPY ./src/ ./
 RUN dotnet publish -c Release -o /out
 
 # https://developers.home-assistant.io/docs/add-ons/configuration#add-on-dockerfile
-ARG BUILD_FROM
+ARG BUILD_FROM=ghcr.io/home-assistant/aarch64-base:3.15
 FROM $BUILD_FROM
 
 
