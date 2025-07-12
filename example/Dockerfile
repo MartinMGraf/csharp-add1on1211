@@ -4,7 +4,7 @@ ARG BUILD_FROM
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 COPY ./src/ ./
-RUN dotnet publish -c Release -r linux-arm64 --self-contained true -o /out
+RUN dotnet publish -c Release -r linux-arm64 --self-contained true -p:AssemblyName=MyAddon -o /out
 
 # https://developers.home-assistant.io/docs/add-ons/configuration#add-on-dockerfile
 FROM $BUILD_FROM
@@ -19,4 +19,5 @@ RUN \
 COPY --from=build /out /app
 WORKDIR /app
 
+RUN chmod +x /app/MyAddon
 CMD ["/app/MyAddon"]
