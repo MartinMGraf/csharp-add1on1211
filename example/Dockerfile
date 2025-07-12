@@ -1,12 +1,5 @@
-ARG BUILD_FROM
-
-# BUILD FROM dotnet SDK to compile die App
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
-WORKDIR /src
-COPY ./src/ ./
-RUN dotnet publish -c Release -r linux-arm64 --self-contained true -p:AssemblyName=MyAddon -o /out
-
 # https://developers.home-assistant.io/docs/add-ons/configuration#add-on-dockerfile
+ARG BUILD_FROM
 FROM $BUILD_FROM
 
 
@@ -16,7 +9,13 @@ RUN \
     curl -sSLf -o /usr/bin/tempio \
     "https://github.com/home-assistant/tempio/releases/download/${TEMPIO_VERSION}/tempio_${BUILD_ARCH}"
 
-COPY --from=build /out /app
+RUN apk add --no-cache unzip curl
+
+RUN curl -sSLf -o app.tar.gz "https://example.com/downloads/myaddon-linux-arm64.tar.gz" \
+RUN curl -sSLf -o app.tar.gz "https://github.com/MartinMGraf/csharp-addon1211/releases/download/latest/MyAddon.zip" \
+ && unzip MyAddon.zip -d /app \
+ && rm MyAddon.zip
+
 WORKDIR /app
 
 RUN chmod +x /app/MyAddon
