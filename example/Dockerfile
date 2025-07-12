@@ -1,3 +1,5 @@
+ARG BUILD_FROM=ghcr.io/home-assistant/aarch64-base:3.15
+
 # BUILD FROM dotnet SDK to compile die App
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
@@ -5,7 +7,7 @@ COPY ./src/ ./
 RUN dotnet publish -c Release -o /out
 
 # https://developers.home-assistant.io/docs/add-ons/configuration#add-on-dockerfile
-ARG BUILD_FROM=ghcr.io/home-assistant/aarch64-base:3.15
+
 FROM $BUILD_FROM
 
 
