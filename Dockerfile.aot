@@ -1,0 +1,24 @@
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+
+# 1. Abhängigkeiten installieren
+RUN apt-get update && apt-get install -y \
+    clang lld gcc g++ musl-tools zlib1g-dev pkg-config
+
+# 2. Arbeitsverzeichnis
+WORKDIR /src
+
+# 3. Code in Container kopieren
+COPY . .
+
+# 4. Publish mit AOT für linux-musl-arm64
+RUN dotnet publish example/src/MyAddon.csproj \
+    -c Release \
+    -r linux-musl-arm64 \
+    --self-contained true \
+    /p:PublishAot=true \
+    /p:IlcDisableReflection=true \
+    /p:InvariantGlobalization=true \
+    /p:StripSymbols=true \
+    /p:IlcAdditionalLinkerFlags="--target=aarch64-linux-musl -fuse-ld=lld" \
+    /p:Linker=lld \
+    /p:UseSystemToolchain=true
