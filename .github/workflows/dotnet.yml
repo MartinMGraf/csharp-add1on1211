@@ -18,7 +18,8 @@ jobs:
     - name: test
       run: |
         docker run --rm -v ${{ github.workspace }}/example/src:/runtime -w /runtime -e ROOTFS_DIR=/crossrootfs/arm64 mcr.microsoft.com/dotnet-buildtools/prereqs:ubuntu-16.04-cross-arm64-alpine-20210923140502-78f7860 \
-        dotnet publish --runtime linux-musl-amd64 --self-contained -c Release -v diag MyAddon.csproj
+          ./build.sh -arch arm64 -subset clr -cross -clang9
+
       
     - name: dfd
       run: |
