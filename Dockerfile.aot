@@ -1,4 +1,18 @@
-# syntax=docker/dockerfile:1
-# Learn about building .NET container images:
-# https://github.com/dotnet/dotnet-docker/blob/main/samples/README.md
-FROM mcr.microsoft.com/dotnet/sdk:9.0-alpine-arm64v8 AS build
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+
+WORKDIR /app
+
+# Beispielprojekt kopieren (lokal)
+COPY . .
+
+RUN dotnet publish -c Release -r linux-musl-arm64 -p:PublishAot=true --self-contained true -o /app/publish
+
+# Minimaler Laufzeit-Container
+FROM alpine:latest
+
+RUN apk add --no-cache libstdc++
+
+WORKDIR /app
+COPY --from=build /app/publish .
+
+CMD ["./DeineBinary"]  # Ersetze mit dem Namen deiner exe/binary
