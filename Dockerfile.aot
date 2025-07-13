@@ -1,9 +1,4 @@
 # syntax=docker/dockerfile:1
 FROM mcr.microsoft.com/dotnet/nightly/sdk:9.0-alpine-aot-arm64v8
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        clang \
-        llvm \
-        zlib1g-dev \
-    && rm -rf /var/lib/apt/lists/*
+RUN apk update && apk add --no-cache clang llvm15 zlib-dev
