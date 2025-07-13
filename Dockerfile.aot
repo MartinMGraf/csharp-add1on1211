@@ -25,6 +25,6 @@ RUN sed -i '/Signed-By/ a Architectures: amd64' /etc/apt/sources.list.d/ubuntu.s
     && rm -rf /var/lib/apt/lists/*
 
 
-RUN dotnet publish --runtime linux-arm64 --self-contained /repo/example/src/MyAddon.csproj \
+RUN dotnet publish --runtime linux-arm64 --self-contained -p /repo/example/src/MyAddon.csproj
 
 
