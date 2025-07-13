@@ -18,7 +18,6 @@ jobs:
     - name: dfd
       run: |
         docker build -t my-dotnet-aot -f Dockerfile.aot .    
-
     - name: Export AOT artifact
       run: |
         docker run --rm -v ${{ github.workspace }}:/out my-dotnet-aot       
@@ -46,36 +45,3 @@ jobs:
 
 
 
-
-    - name: Build in Docker
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    - name: Export AOT artifact
-
-
-
-
-
-
-
-
-
-
-      run: |
-        docker run --rm -v ${{ github.workspace }}:/out my-dotnet-aot 
