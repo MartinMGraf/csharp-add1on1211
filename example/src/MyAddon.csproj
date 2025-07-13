@@ -7,5 +7,5 @@
     <InvariantGlobalization>true</InvariantGlobalization>
     <PublishAot>true</PublishAot>
   </PropertyGroup>
-
+<PackageReference Include="Microsoft.DotNet.ILCompiler" Version="7.0.0-*" />
 </Project>
