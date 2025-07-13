@@ -27,7 +27,7 @@ jobs:
           dotnet publish --runtime linux-musl-amd64 --self-contained -c Release MyAddon.csproj
     - name: Zip for Release
       run: |
-        cd ${{github.workspace}}/example/src/bin/Release/net9.0/linux-musl-x64/publish/
+        cd example/src/bin/Release/net9.0/linux-musl-x64/publish
         zip -r MyAddon.zip .
         mv MyAddon.zip  ${{github.workspace}}
     - name: Delete latest release and cleanup tag
