@@ -50,5 +50,4 @@ jobs:
 
 
       run: |
-        docker run --rm -v ${{ github.workspace }}:/out my-dotnet-aot /w out \
-        cp -r /src/bin/Release/net9.0/linux-musl-arm64/native /out/artifact
+        docker run --rm -v ${{ github.workspace }}:/out my-dotnet-aot 
