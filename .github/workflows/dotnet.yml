@@ -15,14 +15,16 @@ jobs:
     steps:
     - name: Checkout source
       uses: actions/checkout@v4
-    - name: Clone target repository
+    - name: Clone target repository and write config.mak
       run: |
         git clone https://github.com/richfelker/musl-cross-make.git
         cd musl-cross-make
         echo "TARGET = aarch64-alpine-linux-musl" >> config.mak
         echo "OUTPUT = /usr" >> config.mak
         echo "BINUTILS_CONFIG=--enable-gold=yes" >> config.mak
-        make
+        echo "--- config.mak content ---"
+        cat config.mak
+
 
 
 
