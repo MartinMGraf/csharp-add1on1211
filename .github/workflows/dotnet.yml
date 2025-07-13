@@ -17,7 +17,7 @@ jobs:
       uses: actions/checkout@v4
     - name: dfd
       run: |
-        docker build -t my-dotnet-aot -f Dockerfile.aot .    
+        docker build --build-arg TARGETARCH=linux-arm64 -t my-dotnet-aot -f Dockerfile.aot .    
     - name: Export AOT artifact
       run: |
         docker run --rm -v ${{ github.workspace }}/example/src:/app my-dotnet-aot       
