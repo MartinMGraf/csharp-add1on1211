@@ -17,11 +17,11 @@ jobs:
       uses: actions/checkout@v4
     - name: Clone dotnet-buildtools-prereqs-docker
       run: |
-        git clone https://github.com/dotnet/dotnet-buildtools-prereqs-docker.git
+        git clonehttps://github.com/dotnet/runtimelab.git
     
     - name: test
       run: |
-        docker run --rm -v ${{ github.workspace }}/dotnet-buildtools-prereqs-docker:/runtime -w /runtime -e ROOTFS_DIR=/crossrootfs/arm64 mcr.microsoft.com/dotnet-buildtools/prereqs:ubuntu-16.04-cross-arm64-alpine-20210923140502-78f7860 \
+        docker run --rm -v ${{ github.workspace }}/runtimelab:/runtime -w /runtime -e ROOTFS_DIR=/crossrootfs/arm64 mcr.microsoft.com/dotnet-buildtools/prereqs:ubuntu-16.04-cross-arm64-alpine-20210923140502-78f7860 \
           ./build.sh -arch arm64 -subset clr -cross -clang9
 
       
