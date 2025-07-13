@@ -17,3 +17,4 @@ WORKDIR /app
 COPY --link --from=build /app .
 USER $APP_UID
 ENTRYPOINT ["./releasesapi"]
+
