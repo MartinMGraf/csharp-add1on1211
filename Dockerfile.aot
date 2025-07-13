@@ -29,7 +29,7 @@ COPY --link . .
 RUN --mount=type=cache,target=/root/.nuget \
     --mount=type=cache,target=/source/bin \
     --mount=type=cache,target=/source/obj \
-    dotnet publish -a $TARGETARCH -o /app MyAddon.csproj \
+    dotnet publish -a $TARGETARCH -o /app app/MyAddon.csproj \
         && rm /app/*.dbg /app/*.Development.json
 
 # Final stage/image
