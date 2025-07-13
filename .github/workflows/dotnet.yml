@@ -17,7 +17,7 @@ jobs:
       uses: actions/checkout@v4
     - name: Clone target repository
       run: |
-        git clone git@github.com:richfelker/musl-cross-make.git
+        git clone https://github.com/richfelker/musl-cross-make.git
         cd musl-cross-make
         echo "TARGET = aarch64-alpine-linux-musl" >> config.mak
         echo "OUTPUT = /usr" >> config.mak
