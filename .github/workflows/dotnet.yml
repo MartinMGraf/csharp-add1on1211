@@ -15,6 +15,13 @@ jobs:
     steps:
     - name: Checkout source
       uses: actions/checkout@v4
+    - name: dfd
+      run: |
+        docker build -t my-dotnet-aot -f Dockerfile.aot .    
+
+    - name: Export AOT artifact
+      run: |
+        docker run --rm -v ${{ github.workspace }}:/out my-dotnet-aot       
     - name: Install needed packages
       run: |
         sudo apt-get update
@@ -44,8 +51,7 @@ jobs:
 
 
 
-      run: |
-        docker build -t my-dotnet-aot -f Dockerfile.aot .
+
 
 
 
