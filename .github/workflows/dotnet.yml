@@ -19,7 +19,7 @@ jobs:
       run: |
         git clone --depth 1 https://github.com/dotnet/runtimelab.git
     - name: Make build.sh executable
-      run: chmod +x ./runtimelab/build.sh    
+      run: chmod +x ${{ github.workspace }}/runtimelab/build.sh    
     - name: test
       run: |
         docker run --rm -v ${{ github.workspace }}/runtimelab:/runtime -w /runtime -e ROOTFS_DIR=/crossrootfs/arm64 mcr.microsoft.com/dotnet-buildtools/prereqs:ubuntu-16.04-cross-arm64-alpine-20210923140502-78f7860 \
