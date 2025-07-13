@@ -22,9 +22,9 @@ jobs:
       run: |
         docker run --rm \
           -v ${{ github.workspace }}:/src \
-          -w /src \
-          mcr.microsoft.com/dotnet/sdk:10.0-preview-alpine-aot \
-          dotnet publish /src/example/src/MyProject.csproj -c Release -o /src/publish
+          -w /src/example/src \
+          myaddond \
+          dotnet publish MyProject.csproj -c Release -o /src/publish
     - name: Install needed packages
       run: |
         sudo apt-get update
