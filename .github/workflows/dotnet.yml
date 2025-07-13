@@ -16,8 +16,9 @@ jobs:
     - name: Checkout source
       uses: actions/checkout@v4
     - name: Clone dotnet-buildtools-prereqs-docker
-      run: |
-        git clone --depth 1 https://github.com/dotnet/runtimelab.git
+      run:  git clone --depth 1 https://github.com/dotnet/runtimelab.git
+    - name: Show cloned directory
+      run: ls -la ${{ github.workspace }}     
     - name: Make build.sh executable
       run: chmod +x ${{ github.workspace }}/runtimelab/build.sh    
     - name: test
