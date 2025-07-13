@@ -6,5 +6,5 @@ RUN apk add --no-cache clang build-base zlib-dev lld
 
 # RUN dotnet publish out/example/src/MyAddon.csproj -c Release -r linux-musl-arm64 --self-contained true /p:PublishAot=true
 ENV DOTNET_NATIVEAOT_LINKER=lld
-CMD ["dotnet", "publish", "/out/example/src/MyAddon.csproj", "-c", "Release", "-r", "linux-musl-arm64", "--self-contained", "true", "/p:PublishAot=true", "/p:Linker=lld" ]
+CMD ["dotnet", "publish", "/out/example/src/MyAddon.csproj", "-c", "Release", "-r", "linux-musl-arm64", "--self-contained", "true", "/p:PublishAot=true", "/p:Linker=lld", "/p:IlcAdditionalLinkerFlags='--target=aarch64-linux-musl -fuse-ld=lld'" ]
 
