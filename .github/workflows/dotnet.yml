@@ -15,7 +15,11 @@ jobs:
     steps:
     - name: Checkout source
       uses: actions/checkout@v4
-    - name: Clone target repository and write config.mak
+    - name: Install needed packages
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y qemu qemu-user-static binfmt-support      
+    - name: Clone target repository and write config.mak clang zlib1g-dev libkrb5-dev
       run: |
         git clone https://github.com/richfelker/musl-cross-make.git
         cd musl-cross-make
@@ -24,7 +28,14 @@ jobs:
         echo "BINUTILS_CONFIG=--enable-gold=yes" >> config.mak
         echo "--- config.mak content ---"
         cat config.mak
-
+    - name: Build musl-cross
+      run: |
+        cd musl-cross-make
+        make
+    - name: Install musl-cross
+      run: |
+        cd musl-cross-make
+        sudo make install        
 
 
 
