@@ -20,7 +20,10 @@ jobs:
        docker build  -t myaddond -f Dockerfile.aot .
     - name: asdfasd
       run: |
-        docker run --rm -it myaddond -v ${{ github.workspace }}
+        docker run -v ${{ github.workspace }}:/src --rm myaddond \
+        -w /src/example/src \
+        dotnet publish --runtime linux-musl-amd64 --self-contained -c Release -v diag MyAddon.csproj
+        
     - name: Clone dotnet-buildtools-prereqs-docker
       run:  git clone --branch feature/NativeAOT-final --depth 1 https://github.com/dotnet/runtimelab.git
 
