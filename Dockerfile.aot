@@ -29,7 +29,7 @@ COPY --link . .
 RUN --mount=type=cache,target=/root/.nuget \
     --mount=type=cache,target=/source/bin \
     --mount=type=cache,target=/source/obj \
-    dotnet publish -a $TARGETARCH -o /app releasesapi.csproj \
+    dotnet publish -a $TARGETARCH -o /app MyAddon.csproj \
         && rm /app/*.dbg /app/*.Development.json
 
 # Final stage/image
@@ -37,4 +37,4 @@ FROM mcr.microsoft.com/dotnet/runtime-deps:10.0-preview-noble-chiseled-arm64v8
 WORKDIR /app
 COPY --link --from=build /app .
 USER $APP_UID
-ENTRYPOINT ["./releasesapi"]
+ENTRYPOINT ["./MyAddon"]
