@@ -2,19 +2,3 @@
 # Learn about building .NET container images:
 # https://github.com/dotnet/dotnet-docker/blob/main/samples/README.md
 FROM mcr.microsoft.com/dotnet/sdk:10.0-preview-alpine-aot AS build
-WORKDIR /example/src
-
-# Build the app
-COPY --link . .
-RUN --mount=type=cache,target=/root/.nuget \
-    --mount=type=cache,target=/source/bin \
-    --mount=type=cache,target=/source/obj \
-    dotnet publish --runtime linux-musl-amd64 --self-contained -o /app example/src/MyAddon.csproj
-
-# Final stage/image
-FROM mcr.microsoft.com/dotnet/runtime-deps:10.0-preview-alpine
-WORKDIR /app
-COPY --link --from=build /app .
-USER $APP_UID
-ENTRYPOINT ["./releasesapi"]
-
