@@ -19,8 +19,8 @@ RUN apk add --no-cache \
 
 RUN curl -sSLf -o MyAddon.zip "https://github.com/MartinMGraf/csharp-add1on12111x/releases/download/latest/MyAddon.zip" \
  && unzip MyAddon.zip -d /app \
- && rm MyAddon.zip
-  && ls -R /app
+ && rm MyAddon.zip \
+ && ls -R /app
 
 
 RUN chmod +x app/home/runner/work/csharp-add1on12111x/csharp-add1on12111x/example/src/bin/Release/net9.0/linux-musl-x64/publish/MyAddon
