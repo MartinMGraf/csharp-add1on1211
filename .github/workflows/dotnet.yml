@@ -1,4 +1,4 @@
-name: Build AOT for linux-musl-arm64
+ame: Build AOT for linux-musl-arm64
 
 
 
@@ -21,7 +21,6 @@ jobs:
     - name: asdfasd
       run: |
         docker run -v ${{ github.workspace }}:/src -w /src/example/src --rm myaddond  \
-          #dotnet publish --runtime linux-musl-arm64 --self-contained true -c Release MyAddon.csproj
           dotnet publish --runtime linux-musl-arm64 -c Release MyAddon.csproj
     - name: Zip for Release
       run: |
