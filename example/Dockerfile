@@ -14,7 +14,8 @@ RUN apk add --no-cache \
     icu-libs \
     libgcc \
     libstdc++ \
-    unzip
+    unzip \
+    findutils 
 
 RUN curl -sSLf -o MyAddon.zip "https://github.com/MartinMGraf/csharp-add1on12111x/releases/download/latest/MyAddon.zip" \
  && unzip MyAddon.zip -d /app \
