@@ -3,7 +3,7 @@
 # https://github.com/dotnet/dotnet-docker/blob/main/samples/README.md
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:10.0-preview-noble-aot-amd64 AS build
 ARG TARGETARCH
-WORKDIR /source
+WORKDIR /app
 
 # Add the Ubuntu sources list for the target architecture
 COPY <<EOF /etc/apt/sources.list.d/arm64.sources
@@ -29,7 +29,7 @@ COPY --link . .
 RUN --mount=type=cache,target=/root/.nuget \
     --mount=type=cache,target=/source/bin \
     --mount=type=cache,target=/source/obj \
-    dotnet publish -a $TARGETARCH -o /app app/MyAddon.csproj \
+    dotnet publish -a $TARGETARCH -o /app MyAddon.csproj \
         && rm /app/*.dbg /app/*.Development.json
 
 # Final stage/image
