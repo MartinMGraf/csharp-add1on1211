@@ -22,32 +22,9 @@ jobs:
       run: |
         docker run -v ${{ github.workspace }}:/src -w /src/example/src --rm myaddond  \
           dotnet publish --runtime linux-musl-amd64 --self-contained true -c Release MyAddon.csproj
-        
-    - name: Clone dotnet-buildtools-prereqs-docker
-      run:  git clone --branch feature/NativeAOT-final --depth 1 https://github.com/dotnet/runtimelab.git
-
-    - name: Make build.sh executable
-      run: chmod +x ${{ github.workspace }}/runtimelab/build.sh    
-    - name: test
-      run: |
-        docker run --rm -v ${{ github.workspace }}/runtimelab:/runtime -w /runtime -e ROOTFS_DIR=/crossrootfs/arm64 mcr.microsoft.com/dotnet-buildtools/prereqs:ubuntu-16.04-cross-arm64-alpine-20210923140502-78f7860 \
-          ./build.sh -arch arm64 -subset clr -cross -clang9
-
-      
-    - name: dfd
-      run: |
-       docker build --pull -t myaddond -f Dockerfile.aot 'https://github.com/MartinMGraf/csharp-add1on12111x.git'
-    - name: Export AOT artifact
-      run: |
-        docker run --rm \
-          -v ${{ github.workspace }}:/src \
-          --platform linux/arm64 \
-          -w /src/example/src \
-          myaddond \
-          dotnet publish --runtime linux-musl-amd64 --self-contained -c Release -v diag MyAddon.csproj
     - name: Zip for Release
       run: |
-        cd example/src/bin/Release/net9.0/linux-musl-x64/publish
+        cd example/src/bin/Release/net9.0/linux-musl-x64/publish/
         zip -r MyAddon.zip .
         mv MyAddon.zip  ${{github.workspace}}
     - name: Delete latest release and cleanup tag
