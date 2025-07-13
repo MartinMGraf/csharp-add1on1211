@@ -15,9 +15,9 @@ jobs:
     steps:
     - name: Checkout source
       uses: actions/checkout@v4
-    - name: Clone dotnet-buildtools-prereqs-docker
-      run: |
-        git clone https://github.com/dotnet/runtimelab.git
+    #- name: Clone dotnet-buildtools-prereqs-docker
+     # run: |
+      #  git clone https://github.com/dotnet/runtimelab.git
     
     - name: test
       run: |
