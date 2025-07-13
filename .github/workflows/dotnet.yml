@@ -18,7 +18,7 @@ jobs:
     - name: Clone dotnet-buildtools-prereqs-docker
       run:  git clone --depth 1 https://github.com/dotnet/runtimelab.git
     - name: Show cloned directory
-      run: ls -la ${{ github.workspace }}     
+      run: ls -la ${{ github.workspace }}/runtimelab
     - name: Make build.sh executable
       run: chmod +x ${{ github.workspace }}/runtimelab/build.sh    
     - name: test
