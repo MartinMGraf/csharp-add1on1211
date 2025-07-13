@@ -1,5 +1,5 @@
 # 1. Alpine als Basis
-FROM alpine:latest
+FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine
 
 # 2. Abhängigkeiten für dotnet und curl installieren
 RUN apk add --no-cache clang build-base zlib-dev dotnet9-sdk
