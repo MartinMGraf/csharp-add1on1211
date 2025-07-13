@@ -24,28 +24,4 @@ jobs:
           -v ${{ github.workspace }}:/src \
           -w /src/example/src \
           myaddond \
-          dotnet publish MyAddon.csproj -c Release -o /src/publish
-    - name: Install needed packages
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y qemu-user-static binfmt-support      
-    - name: Clone target repository and write config.mak clang zlib1g-dev libkrb5-dev
-      run: |
-        git clone https://github.com/richfelker/musl-cross-make.git
-        cd musl-cross-make
-        echo "TARGET = aarch64-alpine-linux-musl" >> config.mak
-        echo "OUTPUT = /usr" >> config.mak
-        echo "BINUTILS_CONFIG=--enable-gold=yes" >> config.mak
-        echo "--- config.mak content ---"
-        cat config.mak
-    - name: Build musl-cross
-      run: |
-        cd musl-cross-make
-        make
-    - name: Install musl-cross
-      run: |
-        cd musl-cross-make
-        sudo make install        
-
-
-
+          dotnet publish --runtime linux-musl-amd64 --self-contained -c Release -o /src/publish MyAddon.csproj
