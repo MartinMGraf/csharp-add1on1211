@@ -6,5 +6,5 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0-alpine
 
 # RUN dotnet publish out/example/src/MyAddon.csproj -c Release -r linux-musl-arm64 --self-contained true /p:PublishAot=true
 
-CMD ["dotnet", "publish", "/out/example/src/MyAddon/MyAddon.csproj", "-c", "Release", "-r", "linux-musl-arm64", "--self-contained", "true", "/p:PublishAot=true"]
+CMD ["dotnet", "publish", "/out/example/src/MyAddon.csproj", "-c", "Release", "-r", "linux-musl-arm64", "--self-contained", "true", "/p:PublishAot=true"]
 
