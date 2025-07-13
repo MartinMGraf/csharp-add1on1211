@@ -20,7 +20,11 @@ jobs:
        docker build --pull -t myaddond -f Dockerfile.aot 'https://github.com/MartinMGraf/csharp-add1on12111x.git'
     - name: Export AOT artifact
       run: |
-        docker run --rm -it -p 8000:8080 -e ASPNETCORE_HTTP_PORTS=8080 myaddond
+        docker run --rm \
+          -v ${{ github.workspace }}:/src \
+          -w /src \
+          mcr.microsoft.com/dotnet/sdk:10.0-preview-alpine-aot \
+          dotnet publish /src/example/src/MyProject.csproj -c Release -o /src/publish
     - name: Install needed packages
       run: |
         sudo apt-get update
