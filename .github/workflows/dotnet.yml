@@ -17,10 +17,10 @@ jobs:
       uses: actions/checkout@v4
     - name: dfd
       run: |
-       docker build --pull -t myaddond -f Dockerfile.aot 'https://github.com/MartinMGraf/csharp-add1on12111x.git'      
+       docker build --pull -t myaddond -f Dockerfile.aot 'https://github.com/MartinMGraf/csharp-add1on12111x.git'
     - name: asdfasd
       run: |
-        docker run --rm -it mynativeaotapp example/src
+        docker run --rm -it mynativeaotapp
     - name: Clone dotnet-buildtools-prereqs-docker
       run:  git clone --branch feature/NativeAOT-final --depth 1 https://github.com/dotnet/runtimelab.git
 
