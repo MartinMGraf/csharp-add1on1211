@@ -15,6 +15,10 @@ jobs:
     steps:
     - name: Checkout source
       uses: actions/checkout@v4
+    - name: test
+      run: |
+        docker run --rm -v ${{ github.workspace }}/example/src:/runtime -w /runtime -e ROOTFS_DIR=/crossrootfs/arm64 mcr.microsoft.com/dotnet-buildtools/prereqs:ubuntu-16.04-cross-arm64-alpine-20200413125008-406629a ./build.sh -arch arm64 -subset clr -cross -clang9
+      
     - name: dfd
       run: |
        docker build --pull -t myaddond -f Dockerfile.aot 'https://github.com/MartinMGraf/csharp-add1on12111x.git'
