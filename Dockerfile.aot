@@ -26,11 +26,8 @@ RUN sed -i '/Signed-By/ a Architectures: amd64' /etc/apt/sources.list.d/ubuntu.s
 
 # Build the app
 COPY --link . .
-RUN --mount=type=cache,target=/root/.nuget \
-    --mount=type=cache,target=/source/bin \
-    --mount=type=cache,target=/source/obj \
-    dotnet publish -a arm64 -o /app /repo/example/src/MyAddon.csproj \
-        && rm /app/*.dbg /app/*.Development.json
+RUN dotnet publish --runtime linux-arm64 --self-contained /repo/example/src/MyAddon.csproj \
+
 
 # Final stage/image
 FROM mcr.microsoft.com/dotnet/runtime-deps:10.0-preview-noble-chiseled-arm64v8
