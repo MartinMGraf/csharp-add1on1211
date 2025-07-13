@@ -20,7 +20,7 @@ jobs:
        docker build  -t myaddond -f Dockerfile.aot .
     - name: asdfasd
       run: |
-        docker run -v ${{ github.workspace }}:/src --rm myaddond -w /src/example/src \
+        docker run -v ${{ github.workspace }}:/src -w /src/example/src --rm myaddond  \
           dotnet publish --runtime linux-musl-amd64 --self-contained true -c Release MyAddon.csproj
         
     - name: Clone dotnet-buildtools-prereqs-docker
