@@ -14,11 +14,21 @@ jobs:
     - name: Checkout source
       uses: actions/checkout@v4
 
-    - name: Build in Docker
+    - name: Build inside Docker container
       run: |
-        docker build -t my-dotnet-aot -f Dockerfile.aot .
-
-    - name: Export AOT artifact
-      run: |
-        docker run --rm -v ${{ github.workspace }}:/out my-dotnet-aot \
-        cp -r /src/bin/Release/net9.0/linux-musl-arm64/native /out/artifact
+        docker run --rm \
+          -v ${{ github.workspace }}:/app \
+          -w /app \
+          mcr.microsoft.com/dotnet/sdk:9.0 \
+          bash -c "
+            apt-get update &&
+            apt-get install -y sudo apk add clang build-base zlib-dev &&
+            dotnet publish example/src/MyAddon.csproj \
+              -c Release \
+              -r linux-musl-arm64 \
+              --self-contained true \
+              /p:PublishAot=true \
+              /p:IlcDisableReflection=true \
+              /p:InvariantGlobalization=true \
+              /p:StripSymbols=true
+          "
