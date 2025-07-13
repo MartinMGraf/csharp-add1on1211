@@ -17,10 +17,10 @@ jobs:
       uses: actions/checkout@v4
     - name: dfd
       run: |
-       docker build --pull -t myaddond -f Dockerfile.aot -v ${{ github.workspace }}
+       docker build --pull -t myaddond -f Dockerfile.aot 
     - name: asdfasd
       run: |
-        docker run --rm -it mynativeaotapp
+        docker run --rm -it myaddond -v ${{ github.workspace }}
     - name: Clone dotnet-buildtools-prereqs-docker
       run:  git clone --branch feature/NativeAOT-final --depth 1 https://github.com/dotnet/runtimelab.git
 
