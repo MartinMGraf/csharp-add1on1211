@@ -11,12 +11,21 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout source
       uses: actions/checkout@v4
+    - name: Clone target repository
+      run: |
+        git clone git@github.com:richfelker/musl-cross-make.git
+        cd musl-cross-make
+        echo "TARGET = aarch64-alpine-linux-musl" >> config.mak
+        echo "OUTPUT = /usr" >> config.mak
+        echo "BINUTILS_CONFIG=--enable-gold=yes" >> config.mak
+        make
+
+
+
 
     - name: Build in Docker
 
