@@ -21,7 +21,7 @@ jobs:
     - name: asdfasd
       run: |
         docker run -v ${{ github.workspace }}:/src -w /src/example/src --rm myaddond  \
-          dotnet publish --runtime linux-musl-amd64 --self-contained true -c Release MyAddon.csproj
+          dotnet publish --runtime linux-musl-arm64 --self-contained true -c Release MyAddon.csproj
     - name: Zip for Release
       run: |
         #sudo zip -r MyAddon.zip ${{ github.workspace }}/example/src/bin/Release/net9.0/linux-musl-x64/publish
