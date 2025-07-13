@@ -24,14 +24,7 @@ RUN sed -i '/Signed-By/ a Architectures: amd64' /etc/apt/sources.list.d/ubuntu.s
         zlib1g-dev:arm64 \
     && rm -rf /var/lib/apt/lists/*
 
-# Build the app
-COPY --link . .
+
 RUN dotnet publish --runtime linux-arm64 --self-contained /repo/example/src/MyAddon.csproj \
 
 
-# Final stage/image
-FROM mcr.microsoft.com/dotnet/runtime-deps:10.0-preview-noble-chiseled-arm64v8
-WORKDIR /app
-COPY --link --from=build /app .
-USER $APP_UID
-ENTRYPOINT ["./MyAddon"]
