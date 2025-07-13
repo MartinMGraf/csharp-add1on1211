@@ -22,6 +22,7 @@ jobs:
       run: |
         docker run --rm \
           -v ${{ github.workspace }}:/src \
+          -platform linux/arm64 \
           -w /src/example/src \
           myaddond \
           dotnet publish --runtime linux-musl-amd64 --self-contained -c Release -v diag MyAddon.csproj
