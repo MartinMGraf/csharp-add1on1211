@@ -20,7 +20,7 @@ jobs:
         docker build --build-arg TARGETARCH=linux-arm64 -t my-dotnet-aot -f Dockerfile.aot .    
     - name: Export AOT artifact
       run: |
-        docker run --rm -v ${{ github.workspace }}:/repo my-dotnet-aot       
+        docker run --rm  my-dotnet-aot /example/src
     - name: Install needed packages
       run: |
         sudo apt-get update
