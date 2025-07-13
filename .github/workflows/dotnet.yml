@@ -17,7 +17,7 @@ jobs:
       uses: actions/checkout@v4
     - name: dfd
       run: |
-       docker build --pull -t myaddond -f Dockerfile.aot example/src
+       docker build --pull -t myaddond -f Dockerfile.aot -v ${{ github.workspace }}
     - name: asdfasd
       run: |
         docker run --rm -it mynativeaotapp
