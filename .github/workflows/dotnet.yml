@@ -24,7 +24,7 @@ jobs:
           -v ${{ github.workspace }}:/src \
           -w /src/example/src \
           myaddond \
-          dotnet publish --runtime linux-musl-amd64 --self-contained -c Release MyAddon.csproj
+          dotnet publish --runtime linux-musl-amd64 --self-contained -c Release -v diag MyAddon.csproj
     - name: Zip for Release
       run: |
         cd example/src/bin/Release/net9.0/linux-musl-x64/publish
