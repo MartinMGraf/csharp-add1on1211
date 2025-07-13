@@ -4,4 +4,4 @@ FROM alpine:latest
 # 2. Abhängigkeiten für dotnet und curl installieren
 RUN apk add --no-cache clang build-base zlib-dev dotnet9-sdk
 
-CMD ["/app/MyAddon"]
+RUN dotnet publish /out/example/src/MyAddon.csproj -c Release -r linux-musl-arm64 --self-contained true /p:PublishAot=true
