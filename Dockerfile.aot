@@ -1,7 +1,7 @@
 ARG REPO=mcr.microsoft.com/dotnet/aspnet
 # Installer image
 FROM --platform=linux/arm64 arm64v8/alpine as installer
-sudo apk add clang build-base zlib-dev curl
+RUN apk add --no-cache clang build-base zlib-dev curl
 
 # Install .NET SDK
 ENV DOTNET_SDK_VERSION=9.0.302
