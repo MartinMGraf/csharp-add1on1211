@@ -7,5 +7,6 @@
     <InvariantGlobalization>true</InvariantGlobalization>
     <PublishAot>true</PublishAot>
     <StripSymbols>true</StripSymbols>
+  <IlcDisableParallel>true</IlcDisableParallel>
   </PropertyGroup>
 </Project>
