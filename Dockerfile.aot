@@ -2,7 +2,7 @@ ARG REPO=mcr.microsoft.com/dotnet/aspnet
 # Installer image
 FROM --platform=linux/arm64 ubuntu:22.04 as installer
 RUN apt-get update && apt-get install -y \
-    clang gcc libc6-dev curl ca-certificates build-essential build-base zlib-dev
+    clang gcc libc6-dev curl ca-certificates build-essential build-base zlib1g-dev libssl-dev
 
 # Install .NET SDK
 ENV DOTNET_SDK_VERSION=9.0.302
