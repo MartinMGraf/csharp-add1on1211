@@ -17,7 +17,7 @@ jobs:
         docker buildx create --use
     - name: dfd
       run: |
-       docker buildx build --platform linux/arm64 -f Dockerfile.aot -t myaddond --load --push .
+       docker buildx build --platform linux/arm64 -f Dockerfile.aot -t myaddond --load .
     - name: asdfasd
       run: |
         docker run -v ${{ github.workspace }}:/src -w /src/example/src --rm myaddond  \
