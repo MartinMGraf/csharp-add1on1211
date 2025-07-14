@@ -1,6 +1,6 @@
 ARG REPO=mcr.microsoft.com/dotnet/aspnet
 # Installer image
-FROM alpine:latest
+FROM alpine:latest as installer
 
 # Install .NET SDK
 RUN dotnet_sdk_version=9.0.302 \
