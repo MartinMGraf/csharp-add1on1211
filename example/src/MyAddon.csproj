@@ -6,9 +6,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>true</InvariantGlobalization>
     <PublishAot>true</PublishAot>
+    <StripSymbols>true</StripSymbols>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="runtime.linux-musl-arm64.Microsoft.DotNet.ILCompiler" Version="9.0.7" />
-  </ItemGroup>
 </Project>
