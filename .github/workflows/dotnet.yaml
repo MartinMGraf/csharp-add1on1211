@@ -15,6 +15,11 @@ jobs:
     - name: test
       run: |
         docker buildx create --use
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
+    
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3        
     - name: dfd
       run: |
        docker buildx build --platform linux/arm64 -f Dockerfile.aot -t myaddond --load .
