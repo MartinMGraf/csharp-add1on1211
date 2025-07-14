@@ -1,48 +1,8 @@
 ARG REPO=mcr.microsoft.com/dotnet/aspnet
 # Installer image
-FROM --platform=linux/arm64 arm64v8/alpine as installer
+FROM --platform=linux/arm64 mcr.microsoft.com/dotnet/sdk:9.0-alpine3.22-arm64v8 as installer
 RUN apk add --no-cache clang build-base zlib-dev curl
 
-# Install .NET SDK
-ENV DOTNET_SDK_VERSION=9.0.302
-ENV DOTNET_VERSION=9.0.7
-
-RUN curl --fail --show-error --location \
-        --remote-name https://builds.dotnet.microsoft.com/dotnet/Sdk/${DOTNET_SDK_VERSION}/dotnet-sdk-${DOTNET_SDK_VERSION}-linux-arm64.tar.gz \
-        --remote-name https://builds.dotnet.microsoft.com/dotnet/checksums/${DOTNET_VERSION}-sha.txt \
-    && sed -i 's/\r$//' ${DOTNET_VERSION}-sha.txt \
-    && grep "dotnet-sdk-${DOTNET_SDK_VERSION}-linux-arm64.tar.gz" ${DOTNET_VERSION}-sha.txt | sha512sum -c - \
-    && mkdir -p /dotnet \
-    && tar -xzf dotnet-sdk-${DOTNET_SDK_VERSION}-linux-arm64.tar.gz -C /dotnet ./packs ./sdk ./sdk-manifests ./templates ./LICENSE.txt ./ThirdPartyNotices.txt \
-    && rm dotnet-sdk-${DOTNET_SDK_VERSION}-linux-arm64.tar.gz ${DOTNET_VERSION}-sha.txt
-
-
-# .NET SDK image
-FROM $REPO:9.0.7-noble-arm64v8
-
-ENV \
-    # Do not generate certificate
-    DOTNET_GENERATE_ASPNET_CERTIFICATE=false \
-    # Do not show first run text
-    DOTNET_NOLOGO=true \
-    # SDK version
-    DOTNET_SDK_VERSION=9.0.302 \
-    # Enable correct mode for dotnet watch (only mode supported in a container)
-    DOTNET_USE_POLLING_FILE_WATCHER=true \
-    # Skip extraction of XML docs - generally not useful within an image/container - helps performance
-    NUGET_XMLDOC_MODE=skip \
-    # PowerShell telemetry for docker image usage
-    POWERSHELL_DISTRIBUTION_CHANNEL=PSDocker-DotnetSDK-Ubuntu-24.04-arm64
-
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-        curl \
-        git \
-        libatomic1 \
-        wget \
-    && rm -rf /var/lib/apt/lists/*
-
-COPY --from=installer ["/dotnet", "/usr/share/dotnet"]
 
 # Trigger first run experience by running arbitrary cmd
 RUN dotnet help
