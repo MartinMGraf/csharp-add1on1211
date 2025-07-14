@@ -2,6 +2,10 @@ ARG REPO=mcr.microsoft.com/dotnet/aspnet
 # Installer image
 FROM --platform=linux/arm64 ubuntu:noble as installer
 
+# Install curl and other needed tools
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl ca-certificates \
+
 # Install .NET SDK
 RUN dotnet_sdk_version=9.0.302 \
     && dotnet_version=9.0.7 \
