@@ -1,6 +1,6 @@
 ARG REPO=mcr.microsoft.com/dotnet/aspnet
 # Installer image
-FROM alpine:latest as installer
+FROM --platform=linux/arm64 ubuntu:noble as installer
 
 # Install .NET SDK
 RUN dotnet_sdk_version=9.0.302 \
