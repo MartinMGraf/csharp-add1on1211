@@ -2,9 +2,13 @@ ARG REPO=mcr.microsoft.com/dotnet/aspnet
 # Installer image
 FROM --platform=linux/arm64 ubuntu:noble as installer
 
-# Install curl and dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    curl ca-certificates clang libc6-dev \
+    curl \
+    ca-certificates \
+    clang \
+    gcc \
+    build-essential \
+    libc6-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Install .NET SDK
