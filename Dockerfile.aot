@@ -11,7 +11,7 @@ RUN curl --fail --show-error --location \
         --remote-name https://builds.dotnet.microsoft.com/dotnet/Sdk/$DOTNET_SDK_VERSION/dotnet-sdk-$DOTNET_SDK_VERSION-linux-arm64.tar.gz \
         --remote-name https://builds.dotnet.microsoft.com/dotnet/checksums/$DOTNET_VERSION-sha.txt \
     && sed -i 's/\r$//' $DOTNET_VERSION-sha.txt \
-    && sha512sum -c $DOTNET_VERSION-sha.txt --ignore-missing \
+    && sha512sum -c $DOTNET_VERSION-sha.txt  \
     && mkdir --parents /dotnet \
     && tar --gzip --extract --no-same-owner --file dotnet-sdk-$DOTNET_SDK_VERSION-linux-arm64.tar.gz --directory /dotnet ./packs ./sdk ./sdk-manifests ./templates ./LICENSE.txt ./ThirdPartyNotices.txt \
     && rm dotnet-sdk-$DOTNET_SDK_VERSION-linux-arm64.tar.gz $DOTNET_VERSION-sha.txt
