@@ -10,20 +10,11 @@ RUN \
     "https://github.com/home-assistant/tempio/releases/download/${TEMPIO_VERSION}/tempio_${BUILD_ARCH}"
 
 RUN apk add --no-cache \
-    curl \
-    icu-libs \
-    libgcc \
-    libstdc++ \
-    unzip \
-    findutils \
-    libc-utils
+    unzip 
 
 RUN curl -sSLf -o MyAddon.zip "https://github.com/MartinMGraf/csharp-add1on12111x/releases/download/latest/MyAddon.zip" \
  && unzip MyAddon.zip -d /app \
- && rm MyAddon.zip \
- && find /app
-
-RUN ldd app/home/runner/work/csharp-add1on12111x/csharp-add1on12111x/example/src/bin/Release/net9.0/linux-musl-arm64/publish/MyAddon
+ && rm MyAddon.zip 
 
 RUN chmod +x app/home/runner/work/csharp-add1on12111x/csharp-add1on12111x/example/src/bin/Release/net9.0/linux-musl-arm64/publish/MyAddon
 CMD ["/app/home/runner/work/csharp-add1on12111x/csharp-add1on12111x/example/src/bin/Release/net9.0/linux-musl-arm64/publish/MyAddon"]
