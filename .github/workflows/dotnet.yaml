@@ -22,7 +22,7 @@ jobs:
 #      uses: docker/setup-buildx-action@v3        
     - name: dfd
       run: |
-       docker buildx build --platform linux/arm64 -f Dockerfile.aot -t myaddond --load .
+       sudo docker buildx build --platform linux/arm64 -f Dockerfile.aot -t myaddond --load .
     - name: asdfasd
       run: |
           dotnet publish --runtime linux-musl-arm64 --self-contained true -c Release example/src/MyAddon.csproj
