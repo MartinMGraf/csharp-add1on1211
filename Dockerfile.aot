@@ -1,5 +1,5 @@
 # Build-Stage
-FROM --platform=linux/arm64 mcr.microsoft.com/dotnet/aspnet:10.0.0-preview.5-alpine3.22-composite-arm64v8 as build
+FROM --platform=linux/arm64 mcr.microsoft.com/dotnet/sdk:10.0-preview-alpine-aot-arm64v8 as build
 WORKDIR /app
 
 RUN apk add clang build-base zlib-dev
