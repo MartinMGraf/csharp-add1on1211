@@ -1,8 +1,9 @@
 # Build-Stage
-FROM --platform=linux/arm64 mcr.microsoft.com/dotnet/aspnet:9.0.7-alpine3.22-arm64v8 as build
+FROM --platform=linux/arm64 mcr.microsoft.com/dotnet/sdk:9.0-alpine3.22-arm64v8 as build
 WORKDIR /app
 
 RUN apk add clang build-base zlib-dev
+RUN dotnet --version
 
 # Copy the project
 COPY example/src/*.csproj ./
@@ -10,5 +11,4 @@ RUN dotnet restore
 
 # Copy rest of the code
 COPY example/src/. ./
-RUN dotnet publish -c Release -o /app/publish
-
+RUN dotnet publish --runtime linux-musl-arm64 --self-contained true -c Release  -o /app/publish
