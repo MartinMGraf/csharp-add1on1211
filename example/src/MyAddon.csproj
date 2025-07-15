@@ -6,7 +6,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>true</InvariantGlobalization>
     <PublishAot>true</PublishAot>
-    <StripSymbols>true</StripSymbols>
-  <IlcDisableParallel>true</IlcDisableParallel>
+	<IsAotCompatible>true</IsAotCompatible>
   </PropertyGroup>
 </Project>
