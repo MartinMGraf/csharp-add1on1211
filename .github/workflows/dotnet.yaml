@@ -23,7 +23,7 @@ jobs:
     - name: Build and export published output
       run: |
         mkdir -p ./aot-publish
-        docker buildx build \
+        sudo docker buildx build \
           --platform linux/arm64 \
           -f Dockerfile.aot \
           --output type=local,dest=./aot-publish \
