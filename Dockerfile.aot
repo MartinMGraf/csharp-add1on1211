@@ -4,10 +4,8 @@ WORKDIR /app
 
 RUN apk add clang build-base zlib-dev
 
-# Copy the project
 COPY example/src/*.csproj ./
 RUN dotnet restore
 
-# Copy rest of the code
 COPY example/src/. ./
-RUN dotnet publish --runtime linux-musl-arm64 --self-contained true -c Release  -o /app/publish
+RUN dotnet publish --runtime linux-musl-arm64 --self-contained true -c Release -o /out
