@@ -1,9 +1,8 @@
 # Build-Stage
-FROM --platform=linux/arm64 mcr.microsoft.com/dotnet/sdk:10.0-preview-alpine-aot-arm64v8 as build
+FROM --platform=linux/arm64 mcr.microsoft.com/dotnet/sdk:9.0-alpine-arm64v8 as build
 WORKDIR /app
 
-RUN apk add clang build-base zlib-dev
-RUN dotnet --version
+ 
 
 # Copy the project
 COPY example/src/*.csproj ./
