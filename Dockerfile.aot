@@ -2,11 +2,11 @@
 FROM --platform=linux/arm64 mcr.microsoft.com/dotnet/sdk:9.0-alpine3.22-arm64v8 as build
 WORKDIR /app
 
-# Copy csproj und restore dependencies
-COPY *.csproj ./
+# Copy the project
+COPY example/src/*.csproj ./
 RUN dotnet restore
 
-# Copy restlichen Code und publish
-COPY . ./
+# Copy rest of the code
+COPY example/src/. ./
 RUN dotnet publish -c Release -o /app/publish
 
