@@ -2,7 +2,7 @@
 FROM --platform=linux/arm64 mcr.microsoft.com/dotnet/sdk:9.0-alpine-arm64v8 as build
 WORKDIR /app
 
- 
+RUN apk add clang build-base zlib-dev
 
 # Copy the project
 COPY example/src/*.csproj ./
