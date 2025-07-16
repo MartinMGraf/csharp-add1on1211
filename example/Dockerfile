@@ -16,5 +16,5 @@ RUN curl -sSLf -o MyAddon.zip "https://github.com/MartinMGraf/csharp-add1on12111
  && unzip MyAddon.zip -d /app \
  && rm MyAddon.zip 
 
-RUN chmod +x app/home/runner/work/csharp-add1on12111x/csharp-add1on12111x/example/src/bin/Release/net9.0/linux-musl-arm64/publish/MyAddon
-CMD ["/app/home/runner/work/csharp-add1on12111x/csharp-add1on12111x/example/src/bin/Release/net9.0/linux-musl-arm64/publish/MyAddon"]
+RUN chmod +x app/home/runner/work/csharp-add1on12111x/csharp-add1on12111x/aot-publish/out/MyAddonn
+CMD ["/app/home/runner/work/csharp-add1on12111x/csharp-add1on12111x/aot-publish/out/MyAddon"]
