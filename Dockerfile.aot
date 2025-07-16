@@ -8,4 +8,4 @@ COPY example/src/*.csproj ./
 RUN dotnet restore
 
 COPY example/src/. ./
-RUN dotnet publish --runtime linux-musl-arm64 --self-contained true -c Release -o /out
+RUN dotnet publish --runtime linux-musl-arm64 --self-contained true -c Release -p:InvariantGlobalization=true -o /out
