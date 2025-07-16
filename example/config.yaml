@@ -17,3 +17,6 @@ options:
   message: "Hello world..."
 schema:
   message: "str?"
+ports:
+  8080/tcp: 8080
+ingress: true
