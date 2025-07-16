@@ -18,5 +18,5 @@ options:
 schema:
   message: "str?"
 ports:
-  8080/tcp: 8080
+  49999/tcp: 8096
 ingress: true
