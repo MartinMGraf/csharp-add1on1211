@@ -32,7 +32,7 @@ jobs:
           .
     - name: Zip for Release
       run: |
-        sudo zip -r MyAddon.zip ${{ github.workspace }}/aot-publish/
+        sudo zip -r MyAddon.zip ${{ github.workspace }}/aot-publish/out/
         #sudo mv ${{ github.workspace }}/example/src/bin/Release/net9.0/linux-musl-x64/MyAddon.zip  ${{github.workspace}}
     - name: Delete latest release and cleanup tag
       run: gh release delete latest --cleanup-tag
