@@ -10,7 +10,7 @@ RUN \
     "https://github.com/home-assistant/tempio/releases/download/${TEMPIO_VERSION}/tempio_${BUILD_ARCH}"
 
 RUN apk add --no-cache \
-    unzip 
+    unzip icu-libs
 
 RUN curl -sSLf -o MyAddon.zip "https://github.com/MartinMGraf/csharp-add1on12111x/releases/download/latest/MyAddon.zip" \
  && unzip MyAddon.zip -d /app \
