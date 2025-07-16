@@ -4,7 +4,8 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-<InvariantGlobalization>true</InvariantGlobalization>
+  <InvariantGlobalization>true</InvariantGlobalization>
+  <RuntimeHostConfigurationOption Include="System.Globalization.Invariant" Value="true" />
     <PublishAot>true</PublishAot>
 	<IsAotCompatible>true</IsAotCompatible>
   </PropertyGroup>
