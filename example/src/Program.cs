@@ -6,9 +6,10 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 {
     options.SerializerOptions.TypeInfoResolverChain.Insert(0, AppJsonSerializerContext.Default);
 }); 
+builder.WebHost.UseUrls("http://0.0.0.0:8099");
 var app = builder.Build();
-app.Urls.Clear();
-app.Urls.Add("http://0.0.0.0:8080"); 
+
+
 var sampleTodos = new Todo[] {
     new(1, "Walk the dog"),
     new(2, "Do the dishes", DateOnly.FromDateTime(DateTime.Now)),
