@@ -32,7 +32,7 @@ jobs:
           .
     - name: Zip for Release
       run: |
-        sudo zip -r MyAddon3.zip ${{ github.workspace }}/aot-publish/out/
+        sudo zip -r MyAddon4.zip ${{ github.workspace }}/aot-publish/out/
         #sudo mv ${{ github.workspace }}/example/src/bin/Release/net9.0/linux-musl-x64/MyAddon.zip  ${{github.workspace}}
     - name: Delete latest release and cleanup tag
       run: gh release delete latest --cleanup-tag
@@ -40,6 +40,6 @@ jobs:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       continue-on-error: true
     - name: Create release
-      run: gh release create latest --title "Latest Release" ${{github.workspace}}/MyAddon3.zip
+      run: gh release create latest --title "Latest Release" ${{github.workspace}}/MyAddon4.zip
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
