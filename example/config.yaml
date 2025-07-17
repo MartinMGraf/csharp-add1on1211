@@ -17,5 +17,4 @@ options:
   message: "Hello world..."
 schema:
   message: "str?"
-ports:
-  5000/tcp: 8096
+network: host
