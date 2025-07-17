@@ -17,7 +17,7 @@ RUN apk add --no-cache \
 COPY ingress.conf /etc/nginx/http.d/
 
 
-RUN curl -sSLf -o MyAddon.zip "https://github.com/MartinMGraf/csharp-add1on12111x/releases/download/latest/MyAddon4.zip" \
+RUN curl -sSLf -o MyAddon.zip "https://github.com/MartinMGraf/csharp-add1on12111x/releases/download/latest/MyAddon5.zip" \
  && unzip MyAddon.zip -d /app \
  && rm MyAddon.zip 
  
