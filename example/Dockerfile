@@ -1,6 +1,6 @@
 # https://developers.home-assistant.io/docs/add-ons/configuration#add-on-dockerfile
 ARG BUILD_FROM
-FROM docker pull ghcr.io/martinmgraf/my-image-name:latest
+FROM ghcr.io/martinmgraf/my-image-name:latest
 
 
 # Execute during the build of the image
