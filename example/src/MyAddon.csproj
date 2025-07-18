@@ -4,8 +4,10 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <InvariantGlobalization>true</InvariantGlobalization>
+<InvariantGlobalization>true</InvariantGlobalization>
     <PublishAot>true</PublishAot>
 	<IsAotCompatible>true</IsAotCompatible>
   </PropertyGroup>
+ 
+
 </Project>

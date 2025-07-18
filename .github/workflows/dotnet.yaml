@@ -1,5 +1,9 @@
 name: Build AOT for linux-musl-arm64
 
+
+
+
+
 on:
   push:
     branches: [ main ]
@@ -8,28 +12,27 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04-arm
     steps:
     - name: Checkout source
       uses: actions/checkout@v4
-    - name: test
-      run: |
-        docker buildx create --use
-    - name: Set up QEMU
-      uses: docker/setup-qemu-action@v3
+#    - name: Set up QEMU
+#      uses: docker/setup-qemu-action@v3
+
     
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3        
-    - name: dfd
+#    - name: Set up Docker Buildx
+#      uses: docker/setup-buildx-action@v3        
+    - name: Build and export published output
       run: |
-       docker buildx build --platform linux/arm64 -f Dockerfile.aot -t myaddond --load .
-    - name: asdfasd
-      run: |
-        docker run  -v ${{ github.workspace }}:/src -w /src/example/src --platform linux/arm64 --rm myaddond  \
-          dotnet publish --runtime linux-musl-arm64 --self-contained true -c Release MyAddon.csproj
+        mkdir -p ./aot-publish
+        sudo docker buildx build \
+          --platform linux/arm64 \
+          -f Dockerfile.aot \
+          --output type=local,dest=./aot-publish \
+          .
     - name: Zip for Release
       run: |
-        sudo zip -r MyAddon.zip ${{ github.workspace }}/example/src/bin/Release/net9.0/linux-musl-arm64/publish/
+        sudo zip -r MyAddon5.zip ${{ github.workspace }}/aot-publish/out/
         #sudo mv ${{ github.workspace }}/example/src/bin/Release/net9.0/linux-musl-x64/MyAddon.zip  ${{github.workspace}}
     - name: Delete latest release and cleanup tag
       run: gh release delete latest --cleanup-tag
@@ -37,6 +40,6 @@ jobs:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       continue-on-error: true
     - name: Create release
-      run: gh release create latest --title "Latest Release" ${{github.workspace}}/MyAddon.zip
+      run: gh release create latest --title "Latest Release" ${{github.workspace}}/MyAddon5.zip
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
