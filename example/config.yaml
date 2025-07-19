@@ -19,3 +19,4 @@ schema:
   message: "str?"
 ingress: true
 full_access: true
+image: "martinmgraf/my-image-name
