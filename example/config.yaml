@@ -19,4 +19,4 @@ schema:
   message: "str?"
 ingress: true
 full_access: true
-image: "ghcr.io/martinmgraf/my-image-name:latest"
+image: "ghcr.io/martinmgraf/my-image-name"
